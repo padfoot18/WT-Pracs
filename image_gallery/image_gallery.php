@@ -18,7 +18,18 @@ $n = mysqli_num_rows($result);
 <html>
 <head>
 	<title>Image gallery</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<style type="text/css">
+		@media(max-width: 425px){
+			#my-img{
+				margin-top: 10px;
+				margin-bottom: 10px;
+				background: orange;
+			}
+		}
+	</style>
 </head>
 <body>
 	<div class="container-fluid">
