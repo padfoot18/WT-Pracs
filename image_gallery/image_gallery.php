@@ -2,13 +2,13 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "image_gallery";
+$dbname = "img_gallery";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
 if(!$conn)
 	die("connection failed: ".mysqli_connect_error());
 
-$sql = "select * from img_paths";
+$sql = "select * from img_path";
 $result = mysqli_query($conn, $sql);
 $n = mysqli_num_rows($result);
 ?>
