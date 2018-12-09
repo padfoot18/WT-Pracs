@@ -11,17 +11,22 @@ else
 }
 $sql = "SELECT * from stud_data ORDER BY $sort_by $order_by;";
 $result = mysqli_query($conn, $sql);
+$json_db = [];
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Student data</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
 <body>
 <div class="container-fluid">
 	<button type="button"><a href="addnew.php">Add New</a></button>
-	<br>
+	
+	<button type="button"><a href="json_add.php">JSON add</a></button>
+	<br><br>
 	<div class="form-action">
 	<form method="get">
 		<label for="sort_by">Sort by:</label><br>
@@ -32,9 +37,16 @@ $result = mysqli_query($conn, $sql);
 		</select>
 		<br>
 		<label for="order_by">Order by:</label><br>
-		<input type="radio" name="order_by" checked="true" value="ASC" id="ASC">
+		<input type="radio" name="order_by" value="ASC" id="ASC"
+		<?php if (isset($_GET['order_by']) && $_GET['order_by'] === "ASC")
+						echo "checked";
+		 ?>
+		>
 		<label for="ASC">Ascending</label>
-		<input type="radio" name="order_by" value="DESC" id="DESC">
+		<input type="radio" name="order_by" value="DESC" id="DESC"
+		<?php if (isset($_GET['order_by']) && $_GET['order_by'] === "DESC")
+						echo "checked";
+		 ?>>
 		<label for="DESC">Descending</label>
 		<br>
 		<input type="submit" name="submit">
@@ -52,6 +64,7 @@ $result = mysqli_query($conn, $sql);
 			$n = mysqli_num_rows($result);
 			while ($n > 0) {
 				$row = mysqli_fetch_assoc($result);
+				$json_db[] = $row;
 				echo "<tr>";
 				echo "<td>".$row['rollno']."</td>";
 				echo "<td>".$row['fname']."</td>";
@@ -62,6 +75,9 @@ $result = mysqli_query($conn, $sql);
 			}
 			 ?>
 		</table>
+		<div class="container-fluid" style="margin: 20px;">
+			<p><?php echo json_encode($json_db); ?></p>
+		</div>
 	</div>
 </div>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
